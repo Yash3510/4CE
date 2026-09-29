@@ -16,7 +16,7 @@ from pathlib import Path
 
 HERE = Path(__file__).parent
 sys.path.insert(0, str(HERE.parent / "server"))
-from parda_server.pii import is_aadhaar, luhn_ok, verhoeff_digit  # noqa: E402
+from fource_server.pii import is_aadhaar, luhn_ok, verhoeff_digit  # noqa: E402
 
 rng = random.Random(26171)
 

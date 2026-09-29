@@ -1,4 +1,4 @@
-"""Turns the frames recorded by demo.mjs into out/demo/parda-demo.mp4 (1920x1080) plus stills.
+"""Turns the frames recorded by demo.mjs into out/demo/4ce-demo.mp4 (1920x1080) plus stills.
 
     uv run --with pillow python compose_demo.py
 """

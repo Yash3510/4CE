@@ -1,5 +1,5 @@
 // Live, narrated demo in a visible Chromium window: the page on the left, 4CE on the right.
-// Records a frame every 0.5 s; compose_demo.py turns them into out/demo/parda-demo.mp4.
+// Records a frame every 0.5 s; compose_demo.py turns them into out/demo/4ce-demo.mp4.
 //   node demo.mjs        (4CE server must be running on :8765)
 
 import { chromium } from 'playwright';
@@ -39,7 +39,7 @@ const evil = http.createServer((req, res) => {
 await new Promise((r) => evil.listen(EVIL_PORT, '127.0.0.1', r));
 
 // ---------- browser: page window left, 4CE window right ----------
-const ctx = await chromium.launchPersistentContext(mkdtempSync(join(tmpdir(), 'parda-demo-')), {
+const ctx = await chromium.launchPersistentContext(mkdtempSync(join(tmpdir(), '4ce-demo-')), {
   channel: 'chromium',
   headless: false,
   viewport: null,
@@ -59,7 +59,7 @@ if (!sw) sw = await ctx.waitForEvent('serviceworker');
 const extId = sw.url().split('/')[2];
 const panel = ctx.pages()[0] ?? (await ctx.newPage());
 await panel.goto(`chrome-extension://${extId}/sidepanel.html?demo=1`);
-await panel.waitForFunction(() => !!window.parda && !!window.pardaCaption);
+await panel.waitForFunction(() => !!window.fource && !!window.fourceCaption);
 
 const scr = await panel.evaluate(() => ({ w: screen.availWidth, h: screen.availHeight, x: screen.availLeft ?? 0, y: screen.availTop ?? 0 }));
 const PW = Math.min(520, Math.round(scr.w * 0.3));
@@ -79,17 +79,17 @@ const persona = await (await fetch(`${SERVER}/testbed/persona.json`)).json();
 const canaries = (await (await fetch(`${SERVER}/testbed/canaries.json`)).json()).values;
 const profile = Object.fromEntries(['NAME', 'EMAIL', 'PHONE', 'DOB', 'ADDRESS', 'PINCODE', 'AADHAAR', 'PAN', 'ACCOUNT', 'IFSC', 'UPI'].map((k) => [k, persona.profile[k]]));
 await panel.evaluate(async ({ target, profile, canaries, server }) => {
-  const a = window.parda;
+  const a = window.fource;
   a.pinned = target;
   await chrome.storage.local.set({ profile });
   a.loadProfile(profile);
   Object.assign(a.settings, { canaries, serverUrl: server, stepPauseMs: 900 });
 }, { target, profile, canaries, server: SERVER });
 await panel.reload(); // re-render the profile form with the saved values
-await panel.waitForFunction(() => !!window.parda && !!window.pardaCaption);
+await panel.waitForFunction(() => !!window.fource && !!window.fourceCaption);
 await panel.evaluate(({ target, canaries, server }) => {
-  Object.assign(window.parda.settings, { canaries, serverUrl: server, stepPauseMs: 900 });
-  window.parda.pinned = target;
+  Object.assign(window.fource.settings, { canaries, serverUrl: server, stepPauseMs: 900 });
+  window.fource.pinned = target;
 }, { target, canaries, server: SERVER });
 
 // ---------- recorder ----------
@@ -105,7 +105,7 @@ const recorder = (async () => {
       const real = `real_${String(i).padStart(5, '0')}.jpg`;
       await tab.screenshot({ path: join(OUT, 'raw', real), type: 'jpeg', quality: 80 });
       const st = await panel.evaluate(() => {
-        const a = window.parda;
+        const a = window.fource;
         const ap = document.getElementById('approval');
         return {
           caption: document.getElementById('demo-caption')?.textContent ?? '',
@@ -131,14 +131,14 @@ const recorder = (async () => {
 })();
 const receiptPoller = setInterval(async () => {
   try {
-    const session = await panel.evaluate(() => window.parda.session);
-    const url = (await panel.evaluate(() => window.parda.settings.serverUrl)).includes(String(EVIL_PORT)) ? null : `${SERVER}/v1/receipt?session=${session}`;
+    const session = await panel.evaluate(() => window.fource.session);
+    const url = (await panel.evaluate(() => window.fource.settings.serverUrl)).includes(String(EVIL_PORT)) ? null : `${SERVER}/v1/receipt?session=${session}`;
     if (url) serverReceipt = await (await fetch(url)).json();
   } catch {}
 }, 1500);
 
 // ---------- presenter helpers ----------
-const caption = (t) => panel.evaluate((t) => window.pardaCaption(t), t);
+const caption = (t) => panel.evaluate((t) => window.fourceCaption(t), t);
 // DOM clicks, not Playwright actionability checks: the panel window may sit behind another app.
 const click = (sel) => panel.evaluate((sel) => document.querySelector(sel).click(), sel);
 const fill = (sel, v) => panel.evaluate(({ sel, v }) => { document.querySelector(sel).value = v; }, { sel, v });
@@ -172,7 +172,7 @@ const run = async (goal, decide) => {
       await sleep(2200);
       await click(approve ? '#ap-yes' : '#ap-no');
     }
-    if (!(await panel.evaluate(() => window.parda.running)) && Date.now() - start > 1500) break;
+    if (!(await panel.evaluate(() => window.fource.running)) && Date.now() - start > 1500) break;
     await sleep(200);
   }
 };
@@ -222,7 +222,7 @@ console.log('scene 6: compromised server');
 await setLens(false);
 await goto(`${SERVER}/testbed/claim.html`);
 await caption('⑥ What if the server is compromised? It will try to exfiltrate your Aadhaar and a value seen on another site.');
-await panel.evaluate((u) => { window.parda.settings.serverUrl = u; document.getElementById('server').textContent = 'server: COMPROMISED (demo)'; document.getElementById('server').className = 'pill bad'; }, `http://127.0.0.1:${EVIL_PORT}`);
+await panel.evaluate((u) => { window.fource.settings.serverUrl = u; document.getElementById('server').textContent = 'server: COMPROMISED (demo)'; document.getElementById('server').className = 'pill bad'; }, `http://127.0.0.1:${EVIL_PORT}`);
 await sleep(3500);
 await run('Summarise this page', (kind) => !kind.startsWith('Unusual'));
 await caption('Both refused on the device: the Aadhaar needed your OK, and the email token is bound to the site it came from.');

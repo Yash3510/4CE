@@ -1,6 +1,6 @@
-# Parda: a privacy-first browser agent (SIH26171 prototype)
+# 4CE: a privacy-first browser agent (SIH26171 prototype)
 
-*Parda* (परदा, "curtain") is a browser agent whose planner never sees your personal data.
+**4CE** is a browser agent whose planner never sees your personal data.
 A Chrome and Firefox extension reads the page and finds PII **on the device**. It sends the
 server only a redacted view, in which each value is replaced by a typed token such as `⟦AADHAAR_1⟧`.
 The server's open-weight VLM plans one action at a time. When that action needs a hidden value,
@@ -104,7 +104,7 @@ Needs Node 20+, Python 3.11+ and [uv](https://docs.astral.sh/uv/).
 # 1. Server (serves the testbed too) on http://127.0.0.1:8765
 cd server
 uv sync --extra presidio          # Presidio is optional; drop the extra for a lighter install
-uv run --extra presidio python -m parda_server
+uv run --extra presidio python -m fource_server
 
 # 2. Extension
 cd extension
@@ -129,9 +129,9 @@ planner (form filling only).
 
 ```bash
 ollama pull qwen3-vl:4b           # default model; 8B or UI-TARS-1.5-7B also work
-uv run --extra presidio python -m parda_server
-# or a hosted endpoint:  PARDA_MODEL_URL=https://…/v1 PARDA_MODEL=… PARDA_API_KEY=…
-# optional second model for the ULTRON check: PARDA_CHECKER_MODEL=qwen3:1.7b
+uv run --extra presidio python -m fource_server
+# or a hosted endpoint:  FOURCE_MODEL_URL=https://…/v1 FOURCE_MODEL=… FOURCE_API_KEY=…
+# optional second model for the ULTRON check: FOURCE_CHECKER_MODEL=qwen3:1.7b
 ```
 
 ### Tests and benchmark
@@ -164,7 +164,7 @@ uv run --project ../server --with pillow python ../testbed/make_testbed.py   # r
 
 The response is one checked action, for example `{"do":"type","target":"e4","text":"⟦AADHAAR_1⟧"}`.
 Boxes use the 0–1000 grid that Qwen3-VL grounds on. The system prompt that explains the scheme
-to the model is in `server/parda_server/planner.py`.
+to the model is in `server/fource_server/planner.py`.
 
 ## Layout
 

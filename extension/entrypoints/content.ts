@@ -19,14 +19,14 @@ export default defineContentScript({
   matches: ['<all_urls>'],
   runAt: 'document_idle',
   main() {
-    if ((window as any).__parda) return;
-    (window as any).__parda = true;
+    if ((window as any).__fource) return;
+    (window as any).__fource = true;
 
     let elementMap = new Map<string, Element>();
     let mutations = 0;
     let lastMutation = performance.now();
     const lens = document.createElement('div');
-    lens.dataset.pardaOverlay = '';
+    lens.dataset.fourceOverlay = '';
     Object.assign(lens.style, { position: 'fixed', inset: '0', pointerEvents: 'none', zIndex: '2147483647' });
 
     new MutationObserver((recs) => {

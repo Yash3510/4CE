@@ -1,4 +1,4 @@
-// Opens the Parda panel from the toolbar button: Chrome side panel, Firefox sidebar.
+// Opens the 4CE panel from the toolbar button: Chrome side panel, Firefox sidebar.
 export default defineBackground(() => {
   const chromeSidePanel = (globalThis as any).chrome?.sidePanel;
   if (chromeSidePanel?.setPanelBehavior) {

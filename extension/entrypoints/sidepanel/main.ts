@@ -147,7 +147,7 @@ $('#rc-export').onclick = () => {
   const blob = new Blob([JSON.stringify({ session: agent.session, receipt: agent.receipt.entries, summary: agent.receipt.summary(), audit: agent.audit.entries }, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = `parda-receipt-${agent.session.slice(0, 8)}.json`;
+  a.download = `4ce-receipt-${agent.session.slice(0, 8)}.json`;
   a.click();
 };
 
@@ -277,12 +277,12 @@ $('#reset').onclick = () => {
     cap.id = 'demo-caption';
     cap.hidden = true;
     document.body.prepend(cap);
-    (window as any).pardaCaption = (t: string) => {
+    (window as any).fourceCaption = (t: string) => {
       cap.textContent = t;
       cap.hidden = !t;
     };
   }
-  (window as any).parda = agent;
+  (window as any).fource = agent;
   renderSettings();
   renderProfile();
   checkServer();

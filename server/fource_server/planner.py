@@ -177,9 +177,9 @@ class RulesPlanner:
 
 
 def make_planner() -> tuple[Any, Any]:
-    base = os.environ.get("PARDA_MODEL_URL", "http://localhost:11434/v1")
-    model = os.environ.get("PARDA_MODEL", "qwen3-vl:4b")
-    key = os.environ.get("PARDA_API_KEY")
+    base = os.environ.get("FOURCE_MODEL_URL", "http://localhost:11434/v1")
+    model = os.environ.get("FOURCE_MODEL", "qwen3-vl:4b")
+    key = os.environ.get("FOURCE_API_KEY")
     return VlmPlanner(base, model, key), RulesPlanner()
 
 

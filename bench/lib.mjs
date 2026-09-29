@@ -4,11 +4,11 @@ import { mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 
-export const SERVER = process.env.PARDA_SERVER ?? 'http://127.0.0.1:8765';
+export const SERVER = process.env.FOURCE_SERVER ?? 'http://127.0.0.1:8765';
 const EXT = resolve(import.meta.dirname, '../extension/.output/chrome-mv3');
 
 export async function launch() {
-  const ctx = await chromium.launchPersistentContext(mkdtempSync(join(tmpdir(), 'parda-')), {
+  const ctx = await chromium.launchPersistentContext(mkdtempSync(join(tmpdir(), '4ce-')), {
     channel: 'chromium',
     headless: !process.env.HEADED,
     viewport: { width: 1280, height: 800 },
@@ -20,7 +20,7 @@ export async function launch() {
   const panel = await ctx.newPage();
   panel.on('console', (m) => m.type() === 'error' && console.log('[panel]', m.text()));
   await panel.goto(`chrome-extension://${extId}/sidepanel.html`);
-  await panel.waitForFunction(() => !!window.parda);
+  await panel.waitForFunction(() => !!window.fource);
 
   const persona = await (await fetch(`${SERVER}/testbed/persona.json`)).json();
   const canaries = (await (await fetch(`${SERVER}/testbed/canaries.json`)).json()).values;
@@ -35,7 +35,7 @@ export async function launch() {
       return { tabId: w.tabs[0].id, windowId: w.id };
     }, `${SERVER}/testbed/${page}`);
     await panel.evaluate(async ({ target, profile, canaries, server }) => {
-      const a = window.parda;
+      const a = window.fource;
       a.reset();
       a.pinned = target;
       await chrome.storage.local.set({ profile });

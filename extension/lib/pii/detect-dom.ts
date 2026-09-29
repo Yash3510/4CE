@@ -86,7 +86,7 @@ function collectBlocks(): Block[] {
       const p = n.parentElement;
       if (!p || !n.nodeValue || !n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
       for (let cur: Element | null = p; cur; cur = cur.parentElement) {
-        if (SKIP.has(cur.tagName.toUpperCase()) || (cur as HTMLElement).dataset?.pardaOverlay !== undefined) {
+        if (SKIP.has(cur.tagName.toUpperCase()) || (cur as HTMLElement).dataset?.fourceOverlay !== undefined) {
           return NodeFilter.FILTER_REJECT;
         }
       }

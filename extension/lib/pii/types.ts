@@ -1,4 +1,4 @@
-// PII classes Parda recognises, and how each one is hidden in the outgoing frame.
+// PII classes 4CE recognises, and how each one is hidden in the outgoing frame.
 
 export type PiiType =
   | 'PASSWORD'

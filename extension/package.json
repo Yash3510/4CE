@@ -1,6 +1,6 @@
 {
-  "name": "parda-extension",
-  "description": "Parda: privacy-first browser agent. Personal data never leaves the tab.",
+  "name": "4ce-extension",
+  "description": "4CE: privacy-first browser agent. Personal data never leaves the tab.",
   "private": true,
   "version": "0.1.0",
   "type": "module",

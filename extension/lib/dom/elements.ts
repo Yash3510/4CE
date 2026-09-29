@@ -138,7 +138,7 @@ export function indexElements(): IndexResult {
 
   const visit = (el: Element, parent: Element | null, insideInteractive: boolean) => {
     const tag = el.tagName.toLowerCase();
-    if (SKIP_TAGS.has(tag) || (el as HTMLElement).dataset?.pardaOverlay !== undefined) return;
+    if (SKIP_TAGS.has(tag) || (el as HTMLElement).dataset?.fourceOverlay !== undefined) return;
     if (!isVisible(el)) return;
     let marked = false;
     const isControl = tag === 'input' || tag === 'select' || tag === 'textarea' || tag === 'button';

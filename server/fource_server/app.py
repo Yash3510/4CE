@@ -1,11 +1,11 @@
-"""Parda server: receives only the redacted view, plans one action, checks it, returns it.
+"""4CE server: receives only the redacted view, plans one action, checks it, returns it.
 
-Run:  uv run parda-server            (planner: Qwen3-VL via Ollama if reachable, else rules)
-Env:  PARDA_MODEL_URL  OpenAI-compatible base URL   (default http://localhost:11434/v1, Ollama)
-      PARDA_MODEL      model name                   (default qwen3-vl:4b)
-      PARDA_API_KEY    key for hosted endpoints
-      PARDA_PLANNER    auto | vlm | rules           (default auto)
-      PARDA_CHECKER_MODEL  optional second model for the ULTRON check
+Run:  uv run fource-server            (planner: Qwen3-VL via Ollama if reachable, else rules)
+Env:  FOURCE_MODEL_URL  OpenAI-compatible base URL   (default http://localhost:11434/v1, Ollama)
+      FOURCE_MODEL      model name                   (default qwen3-vl:4b)
+      FOURCE_API_KEY    key for hosted endpoints
+      FOURCE_PLANNER    auto | vlm | rules           (default auto)
+      FOURCE_CHECKER_MODEL  optional second model for the ULTRON check
 """
 
 from __future__ import annotations
@@ -28,7 +28,7 @@ from .planner import Timer, make_planner
 
 ROOT = Path(__file__).resolve().parents[2]
 TESTBED = ROOT / "testbed"
-LOGS = Path(os.environ.get("PARDA_LOG_DIR", ROOT / "server" / "logs"))
+LOGS = Path(os.environ.get("FOURCE_LOG_DIR", ROOT / "server" / "logs"))
 
 state: dict[str, Any] = {}
 
@@ -36,20 +36,20 @@ state: dict[str, Any] = {}
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     vlm, rules = make_planner()
-    mode = os.environ.get("PARDA_PLANNER", "auto")
+    mode = os.environ.get("FOURCE_PLANNER", "auto")
     use_vlm = mode == "vlm" or (mode == "auto" and await vlm.available())
     state.update(
         vlm=vlm if use_vlm else None,
         rules=rules,
         checker=ModelChecker(),
-        auditor=Auditor(LOGS, TESTBED / "canaries.json", use_presidio=os.environ.get("PARDA_PRESIDIO", "1") == "1"),
+        auditor=Auditor(LOGS, TESTBED / "canaries.json", use_presidio=os.environ.get("FOURCE_PRESIDIO", "1") == "1"),
     )
-    print(f"[parda] planner: {vlm.name + ' @ ' + vlm.base_url if use_vlm else 'rules (no model reachable)'}")
-    print(f"[parda] auditor: {state['auditor'].scanner}; logs in {LOGS}")
+    print(f"[4ce] planner: {vlm.name + ' @ ' + vlm.base_url if use_vlm else 'rules (no model reachable)'}")
+    print(f"[4ce] auditor: {state['auditor'].scanner}; logs in {LOGS}")
     yield
 
 
-app = FastAPI(title="Parda server", lifespan=lifespan)
+app = FastAPI(title="4CE server", lifespan=lifespan)
 # The extension calls from a chrome-extension:// or moz-extension:// origin.
 app.add_middleware(CORSMiddleware, allow_origin_regex=r"^(chrome-extension|moz-extension)://.*$|^http://(localhost|127\.0\.0\.1)(:\d+)?$", allow_methods=["*"], allow_headers=["*"])
 
@@ -120,4 +120,4 @@ app.mount("/testbed", StaticFiles(directory=TESTBED, html=True), name="testbed")
 def main() -> None:
     import uvicorn  # noqa: PLC0415
 
-    uvicorn.run("parda_server.app:app", host=os.environ.get("PARDA_HOST", "127.0.0.1"), port=int(os.environ.get("PARDA_PORT", "8765")))
+    uvicorn.run("fource_server.app:app", host=os.environ.get("FOURCE_HOST", "127.0.0.1"), port=int(os.environ.get("FOURCE_PORT", "8765")))

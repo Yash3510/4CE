@@ -28,7 +28,7 @@ export async function loadFaceDetector(): Promise<string> {
       faceDelegate = delegate;
       return delegate;
     } catch (e) {
-      console.warn(`[parda] face detector ${delegate} failed`, e);
+      console.warn(`[4ce] face detector ${delegate} failed`, e);
     }
   }
   throw new Error('face detector unavailable');
@@ -126,7 +126,7 @@ export async function pixelPass(
       }
       for (const f of faces) findings.push({ type: 'FACE', value: `face@${Math.round(f.x)},${Math.round(f.y)}`, rects: [f], pass: 'pixel', conf: 0.9, rule: 'blazeface' });
     } catch (e) {
-      console.warn('[parda] face pass failed', e);
+      console.warn('[4ce] face pass failed', e);
     }
     faceMs = performance.now() - t0;
   }
@@ -142,7 +142,7 @@ export async function pixelPass(
         const worker = await loadOcr();
         for (const b of targets) findings.push(...(await ocrRegion(worker, frame, scale, b.rect, known)));
       } catch (e) {
-        console.warn('[parda] OCR pass failed', e);
+        console.warn('[4ce] OCR pass failed', e);
       }
     }
     ocrMs = performance.now() - t0;

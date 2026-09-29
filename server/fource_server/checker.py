@@ -1,6 +1,6 @@
 """ULTRON-style checker: nothing grades its own work. The planner proposes, this rejects.
 
-Rule checks always run. If PARDA_CHECKER_MODEL is set, a second, different model is also asked
+Rule checks always run. If FOURCE_CHECKER_MODEL is set, a second, different model is also asked
 whether the action serves the goal (ADR-0003 in 4CE: the checker is never the planner's model)."""
 
 from __future__ import annotations
@@ -58,9 +58,9 @@ def check(action: dict[str, Any], p: dict[str, Any]) -> tuple[bool, list[str]]:
 
 class ModelChecker:
     def __init__(self) -> None:
-        self.model = os.environ.get("PARDA_CHECKER_MODEL")
-        self.base = os.environ.get("PARDA_CHECKER_URL", os.environ.get("PARDA_MODEL_URL", "http://localhost:11434/v1")).rstrip("/")
-        key = os.environ.get("PARDA_CHECKER_KEY", os.environ.get("PARDA_API_KEY"))
+        self.model = os.environ.get("FOURCE_CHECKER_MODEL")
+        self.base = os.environ.get("FOURCE_CHECKER_URL", os.environ.get("FOURCE_MODEL_URL", "http://localhost:11434/v1")).rstrip("/")
+        key = os.environ.get("FOURCE_CHECKER_KEY", os.environ.get("FOURCE_API_KEY"))
         self.headers = {"Authorization": f"Bearer {key}"} if key else {}
 
     @property

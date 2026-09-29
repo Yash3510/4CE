@@ -8,7 +8,7 @@ import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 
-const SERVER = process.env.PARDA_SERVER ?? 'http://127.0.0.1:8765';
+const SERVER = process.env.FOURCE_SERVER ?? 'http://127.0.0.1:8765';
 const EXT = resolve('../extension/.output/chrome-mv3');
 const PAGE = process.argv[2] ?? 'claim.html';
 const GOAL = process.argv[3] ?? 'Fill the travel claim form with my details and file the claim';
@@ -21,7 +21,7 @@ const profile = Object.fromEntries(
   ['NAME', 'EMAIL', 'PHONE', 'DOB', 'ADDRESS', 'PINCODE', 'AADHAAR', 'PAN', 'ACCOUNT', 'IFSC', 'UPI'].map((k) => [k, persona.profile[k]]),
 );
 
-const ctx = await chromium.launchPersistentContext(mkdtempSync(join(tmpdir(), 'parda-')), {
+const ctx = await chromium.launchPersistentContext(mkdtempSync(join(tmpdir(), '4ce-')), {
   channel: 'chromium',
   headless: process.env.HEADED ? false : true,
   viewport: { width: 1280, height: 800 },
@@ -34,7 +34,7 @@ const extId = sw.url().split('/')[2];
 const panel = await ctx.newPage();
 panel.on('console', (m) => m.type() === 'error' && console.log('[panel]', m.text()));
 await panel.goto(`chrome-extension://${extId}/sidepanel.html`);
-await panel.waitForFunction(() => !!window.parda);
+await panel.waitForFunction(() => !!window.fource);
 
 // Open the target in its own window so captureVisibleTab sees it, not the panel.
 const target = await panel.evaluate(async (url) => {
@@ -42,7 +42,7 @@ const target = await panel.evaluate(async (url) => {
   return { tabId: w.tabs[0].id, windowId: w.id };
 }, `${SERVER}/testbed/${PAGE}`);
 await panel.evaluate(async ({ target, profile, canaries, server }) => {
-  const a = window.parda;
+  const a = window.fource;
   a.pinned = target;
   await chrome.storage.local.set({ profile });
   a.loadProfile(profile);
@@ -58,7 +58,7 @@ await panel.waitForTimeout(600);
 
 // 1. Preview: what would leave the device for this page.
 const preview = await panel.evaluate(async (goal) => {
-  const o = await window.parda.observe(goal);
+  const o = await window.fource.observe(goal);
   return {
     redactions: o.findings.map((f) => ({ token: f.token, type: f.type, pass: f.pass, conf: +f.conf.toFixed(2) })),
     elements: o.snap.elements.length,
@@ -91,8 +91,8 @@ if (process.env.PREVIEW_ONLY) {
 }
 
 // 2. Run the agent; approve every prompt (a person would read them first).
-await panel.evaluate(() => window.parda.reset());
-await panel.evaluate(({ profile, canaries }) => { window.parda.loadProfile(profile); window.parda.settings.canaries = canaries; }, { profile, canaries });
+await panel.evaluate(() => window.fource.reset());
+await panel.evaluate(({ profile, canaries }) => { window.fource.loadProfile(profile); window.fource.settings.canaries = canaries; }, { profile, canaries });
 await panel.fill('#goal', GOAL);
 await panel.click('#run');
 const approvals = [];
@@ -102,7 +102,7 @@ while (Date.now() - t0 < 240000) {
     approvals.push(await panel.textContent('#ap-title'));
     await panel.click('#ap-yes');
   }
-  const running = await panel.evaluate(() => window.parda.running);
+  const running = await panel.evaluate(() => window.fource.running);
   if (!running && Date.now() - t0 > 1500) break;
   await panel.waitForTimeout(250);
 }
@@ -125,10 +125,10 @@ await panel.waitForTimeout(800);
 await panel.screenshot({ path: join(OUT, `${stem}-panel-receipt.png`) });
 await panel.click('nav button[data-tab="view"]');
 await panel.screenshot({ path: join(OUT, `${stem}-panel-view.png`) });
-const client = await panel.evaluate(() => window.parda.receipt.summary());
-const session = await panel.evaluate(() => window.parda.session);
+const client = await panel.evaluate(() => window.fource.receipt.summary());
+const session = await panel.evaluate(() => window.fource.session);
 const server = await (await fetch(`${SERVER}/v1/receipt?session=${session}`)).json();
-const chainOk = await panel.evaluate(() => window.parda.audit.verify());
+const chainOk = await panel.evaluate(() => window.fource.audit.verify());
 console.log('\n== receipt ==');
 console.log('client:', client);
 console.log('server:', { payloads: server.payloads, bytes: server.bytes, pii_hits: server.pii_hits, canary_hits: server.canary_hits, scanner: server.scanner });

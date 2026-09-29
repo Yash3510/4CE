@@ -123,5 +123,5 @@ def load_presidio() -> PresidioScanner | None:
     try:
         return PresidioScanner()
     except Exception as e:  # noqa: BLE001 - optional dependency
-        print(f"[parda] Presidio not loaded: {e.__class__.__name__}: {e}")
+        print(f"[4ce] Presidio not loaded: {e.__class__.__name__}: {e}")
         return None

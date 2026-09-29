@@ -3,7 +3,7 @@
 | Component | Used for | Licence | Source |
 | --- | --- | --- | --- |
 | Nanobrowser `buildDomTree.js` (itself derived from browser-use, MIT) | Visibility, interactivity and top-most checks in `extension/lib/dom/elements.ts` (adapted, not copied verbatim) | Apache-2.0 | https://github.com/nanobrowser/nanobrowser |
-| Microsoft Presidio India recognizers | Aadhaar (Verhoeff), PAN, GSTIN, passport and voter-ID patterns ported to TypeScript (`lib/pii/validators.ts`) and Python (`server/parda_server/pii.py`); `presidio-analyzer` as an optional server-side scanner | MIT | https://github.com/microsoft/presidio |
+| Microsoft Presidio India recognizers | Aadhaar (Verhoeff), PAN, GSTIN, passport and voter-ID patterns ported to TypeScript (`lib/pii/validators.ts`) and Python (`server/fource_server/pii.py`); `presidio-analyzer` as an optional server-side scanner | MIT | https://github.com/microsoft/presidio |
 | MediaPipe Tasks Vision + BlazeFace short-range model | On-device face detection | Apache-2.0 | https://ai.google.dev/edge/mediapipe/solutions/vision/face_detector |
 | Tesseract.js, tesseract.js-core, `eng` LSTM traineddata | On-device OCR for images, canvas and the outgoing-frame re-check | Apache-2.0 | https://github.com/naptha/tesseract.js |
 | WXT | Cross-browser extension build | MIT | https://wxt.dev |

@@ -89,7 +89,7 @@ for (const page of PAGES) {
     await panel.waitForTimeout(250);
     const truth = await tab.evaluate(readTruth);
     const obs = await panel.evaluate(async () => {
-      const o = await window.parda.observe('(benchmark)');
+      const o = await window.fource.observe('(benchmark)');
       return { findings: o.findings.map((f) => ({ type: f.type, pass: f.pass, rects: f.rects })), timings: o.timings, gate: o.gate.ok, recheck: o.frameRecheckHits };
     });
     timings.push(obs.timings);

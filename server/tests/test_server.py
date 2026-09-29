@@ -8,10 +8,10 @@ import httpx
 import pytest
 from fastapi.testclient import TestClient
 
-from parda_server import app as appmod
-from parda_server.checker import check
-from parda_server.pii import is_aadhaar, luhn_ok, scan, verhoeff_digit
-from parda_server.planner import RulesPlanner, VlmPlanner, extract_json
+from fource_server import app as appmod
+from fource_server.checker import check
+from fource_server.pii import is_aadhaar, luhn_ok, scan, verhoeff_digit
+from fource_server.planner import RulesPlanner, VlmPlanner, extract_json
 
 
 def payload(**over):
@@ -98,8 +98,8 @@ def test_extract_json_handles_prose_and_fences():
 
 @pytest.fixture()
 def client(tmp_path, monkeypatch):
-    monkeypatch.setenv("PARDA_PLANNER", "rules")
-    monkeypatch.setenv("PARDA_PRESIDIO", "0")
+    monkeypatch.setenv("FOURCE_PLANNER", "rules")
+    monkeypatch.setenv("FOURCE_PRESIDIO", "0")
     monkeypatch.setattr(appmod, "LOGS", tmp_path)
     with TestClient(appmod.app) as c:
         yield c
