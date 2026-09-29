@@ -68,7 +68,7 @@ def compose(fr: dict, stats: dict) -> Image.Image:
     d = ImageDraw.Draw(im)
     # Caption
     d.rectangle([0, 0, W, 116], fill=NAVY)
-    lines = textwrap.wrap(plain(fr["caption"]) or "Parda · privacy-first browser agent", 88)[:2]
+    lines = textwrap.wrap(plain(fr["caption"]) or "4CE · privacy-first browser agent", 88)[:2]
     y = 58 - len(lines) * 21
     for ln in lines:
         d.text((36, y), ln, font=F_CAP, fill="white")
@@ -93,7 +93,7 @@ def compose(fr: dict, stats: dict) -> Image.Image:
     by = top + max(real.height, 0) + 22
     if fr.get("approval"):
         d.rounded_rectangle([24, by, 24 + pw, by + 110], radius=10, fill=(255, 243, 205), outline=AMBER, width=2)
-        d.text((44, by + 14), "PARDA ASKS YOU", font=F_LAB, fill=AMBER)
+        d.text((44, by + 14), "4CE ASKS YOU", font=F_LAB, fill=AMBER)
         for i, ln in enumerate(textwrap.wrap(plain(fr["approval"]), 70)[:2]):
             d.text((44, by + 44 + i * 30), ln, font=F_TXT, fill=INK)
     else:
@@ -126,7 +126,7 @@ def main() -> None:
     FRAMES.mkdir(parents=True)
     (OUT / "stills").mkdir(exist_ok=True)
     seq: list[Image.Image] = []
-    title = card([("Parda", F_BIG, (255, 255, 255)), ("a privacy-first browser agent · SIH26171 · live demo", F_MID, (200, 210, 235)),
+    title = card([("4CE", F_BIG, (255, 255, 255)), ("a privacy-first browser agent · SIH26171 · live demo", F_MID, (200, 210, 235)),
                   ("personal data is found and hidden on the device; the planner sees only tokens", F_TXT, (170, 185, 215))])
     seq += [title] * 6
     last_caption, stills = None, 0
@@ -145,7 +145,7 @@ def main() -> None:
     seq += [end] * 12
     for i, im in enumerate(seq):
         im.save(FRAMES / f"f_{i:05d}.jpg", quality=88)
-    mp4 = OUT / "parda-demo.mp4"
+    mp4 = OUT / "4ce-demo.mp4"
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-framerate", "2", "-i", str(FRAMES / "f_%05d.jpg"),
                     "-vf", "fps=30,format=yuv420p", "-c:v", "libx264", "-crf", "22", "-preset", "medium", "-movflags", "+faststart", str(mp4)], check=True)
     print(f"{len(seq)} frames -> {mp4} ({mp4.stat().st_size / 1e6:.1f} MB), {stills} stills")

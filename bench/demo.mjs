@@ -1,6 +1,6 @@
-// Live, narrated demo in a visible Chromium window: the page on the left, Parda on the right.
+// Live, narrated demo in a visible Chromium window: the page on the left, 4CE on the right.
 // Records a frame every 0.5 s; compose_demo.py turns them into out/demo/parda-demo.mp4.
-//   node demo.mjs        (Parda server must be running on :8765)
+//   node demo.mjs        (4CE server must be running on :8765)
 
 import { chromium } from 'playwright';
 import http from 'node:http';
@@ -38,7 +38,7 @@ const evil = http.createServer((req, res) => {
 });
 await new Promise((r) => evil.listen(EVIL_PORT, '127.0.0.1', r));
 
-// ---------- browser: page window left, Parda window right ----------
+// ---------- browser: page window left, 4CE window right ----------
 const ctx = await chromium.launchPersistentContext(mkdtempSync(join(tmpdir(), 'parda-demo-')), {
   channel: 'chromium',
   headless: false,
@@ -168,7 +168,7 @@ const run = async (goal, decide) => {
       const title = await panel.textContent('#ap-title');
       const approve = decide(kind, title);
       if (kind.startsWith('Needs')) await caption('The agent wants to submit. Nothing irreversible happens without you → Approve.');
-      if (kind.startsWith('Unusual')) await caption('⚠ The server asks to put your Aadhaar into a free-text box. Parda stops and asks → Decline.');
+      if (kind.startsWith('Unusual')) await caption('⚠ The server asks to put your Aadhaar into a free-text box. 4CE stops and asks → Decline.');
       await sleep(2200);
       await click(approve ? '#ap-yes' : '#ap-no');
     }
@@ -179,7 +179,7 @@ const run = async (goal, decide) => {
 
 // ---------- the show ----------
 console.log('scene 0: intro');
-await caption('Parda: a browser agent whose planner never sees your personal data. Left: your browser. Right: Parda.');
+await caption('4CE: a browser agent whose planner never sees your personal data. Left: your screen. Right: what the planner server receives.');
 await tabTo('profile');
 await sleep(4500);
 await caption('Your details are saved only in this browser. The planner will see tokens like ⟦AADHAAR_1⟧, never the numbers.');
@@ -230,7 +230,7 @@ await tabTo('steps');
 await sleep(7000);
 
 console.log('scene 7: close');
-await caption('Parda · SIH26171 · testbed: 82/82 PII items hidden, 100% box precision, 0 personal values at the server.');
+await caption('4CE · SIH26171 · testbed: 82/82 PII items hidden, 100% box precision, 0 personal values at the server.');
 await sleep(5000);
 
 recording = false;

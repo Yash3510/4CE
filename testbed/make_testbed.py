@@ -1,4 +1,4 @@
-"""Generates the Parda testbed: synthetic pages full of Indian PII with valid checksums
+"""Generates the 4CE testbed: synthetic pages full of Indian PII with valid checksums
 (Aadhaar passes Verhoeff, cards pass Luhn, GSTIN passes its mod-36 check), each PII item
 labelled with data-gt so the same pages are the benchmark set.
 
@@ -104,7 +104,7 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:8px;bord
 .ok{background:#e8f6ee;border:1px solid #9fd6b5;padding:14px;border-radius:8px}
 </style>"""
 
-SPECIMEN = '<div class="banner">Synthetic test page for Parda (SIH26171). Every person and number here is made up.</div>'
+SPECIMEN = '<div class="banner">Synthetic test page for 4CE (SIH26171). Every person and number here is made up.</div>'
 
 
 def page(title: str, body: str, org: str = "Employee Services Portal") -> str:
@@ -145,7 +145,7 @@ document.getElementById('claim').closest('.card').hidden=true;}}
 
 
 def bank() -> str:
-    return page("Profile · Parda Demo Bank", f"""
+    return page("Profile · 4CE Demo Bank", f"""
 <div class="card"><h1>My profile</h1><p class="muted">Customer since 2016</p>
 <dl><dt>Account holder</dt><dd>{gt('NAME', P['NAME'])}</dd>
 <dt>Account number</dt><dd>{gt('ACCOUNT', P['ACCOUNT'])}</dd>
@@ -164,7 +164,7 @@ def bank() -> str:
 <label>Current password<input type="password" value="{PASSWORD}" data-gt="PASSWORD"></label>
 <label>One-time password<input autocomplete="one-time-code" value="{OTP}" data-gt="OTP"></label>
 <div class="full"><button>Update password</button></div></form>
-<p class="muted">Your OTP for password change is {gt('OTP', OTP)}. Do not share it with anyone.</p></div>""", org="Parda Demo Bank")
+<p class="muted">Your OTP for password change is {gt('OTP', OTP)}. Do not share it with anyone.</p></div>""", org="4CE Demo Bank")
 
 
 def checkout() -> str:
@@ -180,13 +180,13 @@ def checkout() -> str:
 <label class="full">Shipping address<input autocomplete="street-address" value="{P['ADDRESS']}" data-gt="ADDRESS"></label>
 <label>PIN code<input autocomplete="postal-code" value="{P['PINCODE']}" data-gt="PINCODE"></label>
 <label>Phone<input type="tel" value="{P['PHONE']}" data-gt="PHONE"></label>
-<div class="full"><button>Pay ₹8,597</button></div></form></div>""", org="Parda Demo Store")
+<div class="full"><button>Pay ₹8,597</button></div></form></div>""", org="4CE Demo Store")
 
 
 def webmail() -> str:
     msgs = [
         ("UIDAI Updates (demo)", "Aadhaar linked", f"Your Aadhaar {gt('AADHAAR', P['AADHAAR'])} is now linked to mobile {gt('PHONE', P['PHONE'])}."),
-        ("Parda Demo Bank", "OTP for login", f"Your one-time password is {gt('OTP', '518362')}. It expires in 10 minutes."),
+        ("4CE Demo Bank", "OTP for login", f"Your one-time password is {gt('OTP', '518362')}. It expires in 10 minutes."),
         (C["NAME"], "Lunch on Friday?", f"Hi {gt('NAME', 'Ananya')}, call me on {gt('PHONE', C['PHONE'])} or mail {gt('EMAIL', C['EMAIL'])}. Also, my card {gt('CARD', C['CARD'])} got blocked, ugh."),
         ("HR Desk", "Form 16 ready", f"Form 16 for PAN {gt('PAN', P['PAN'])} has been generated for FY 2025-26."),
         ("Travel Desk", "Ticket confirmed", f"Passport number {gt('PASSPORT', P['PASSPORT'])} was used for the booking. Voter ID {gt('VOTER_ID', P['VOTER_ID'])} on file."),
@@ -263,8 +263,8 @@ if(type){{const m=g.measureText(val);window.__gtCanvas.push({{type,box:[x,y-m.ac
 
 def index(pages: list[tuple[str, str, str]]) -> str:
     items = "".join(f'<li><a href="{f}">{t}</a> — <span class="muted">{d}</span></li>' for f, t, d in pages)
-    return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Parda testbed</title>{STYLE}</head><body>
-<main><div class="card"><h1>Parda testbed</h1><p>Synthetic pages with labelled Indian PII. Aadhaar numbers pass Verhoeff, cards pass Luhn,
+    return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><title>4CE testbed</title>{STYLE}</head><body>
+<main><div class="card"><h1>4CE testbed</h1><p>Synthetic pages with labelled Indian PII. Aadhaar numbers pass Verhoeff, cards pass Luhn,
 the GSTIN passes its checksum. Every person and number is made up.</p><ol>{items}</ol>
 <p class="muted">Canary values (must never reach the server) are listed in <a href="canaries.json">canaries.json</a>.</p></div></main></body></html>"""
 

@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Parda testbed</title><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>4CE testbed</title><style>
 :root{--ink:#1d1d1b;--muted:#6a6a64;--line:#dedcd5;--bg:#f6f5f1;--panel:#fff;--brand:#1f4e8c}
 *{box-sizing:border-box}body{margin:0;font:15px/1.5 system-ui,'Segoe UI',Roboto,sans-serif;color:var(--ink);background:var(--bg)}
 header{background:var(--brand);color:#fff;padding:12px 24px;display:flex;align-items:center;justify-content:space-between}
@@ -13,6 +13,6 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:8px;bord
 .banner{background:#fff7e0;border:1px solid #f0d58c;padding:8px 12px;border-radius:6px;font-size:13px;margin-bottom:12px}
 .ok{background:#e8f6ee;border:1px solid #9fd6b5;padding:14px;border-radius:8px}
 </style></head><body>
-<main><div class="card"><h1>Parda testbed</h1><p>Synthetic pages with labelled Indian PII. Aadhaar numbers pass Verhoeff, cards pass Luhn,
+<main><div class="card"><h1>4CE testbed</h1><p>Synthetic pages with labelled Indian PII. Aadhaar numbers pass Verhoeff, cards pass Luhn,
 the GSTIN passes its checksum. Every person and number is made up.</p><ol><li><a href="claim.html">Travel claim form</a> — <span class="muted">the end-to-end task: fill with profile tokens, approve, submit</span></li><li><a href="bank.html">Bank profile</a> — <span class="muted">dense PII, a nominee (canary person), a filled password and OTP</span></li><li><a href="checkout.html">Checkout</a> — <span class="muted">pre-filled card, CVV, expiry and address fields</span></li><li><a href="webmail.html">Webmail inbox</a> — <span class="muted">PII inside free text</span></li><li><a href="idcard.html">ID card image</a> — <span class="muted">face and PII inside an image: pixel pass</span></li><li><a href="canvas.html">Canvas statement</a> — <span class="muted">PII drawn on a canvas: no DOM text at all</span></li></ol>
 <p class="muted">Canary values (must never reach the server) are listed in <a href="canaries.json">canaries.json</a>.</p></div></main></body></html>

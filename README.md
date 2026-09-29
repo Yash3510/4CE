@@ -19,7 +19,7 @@ Its independent scan (validators, Microsoft Presidio and 18 planted canaries) fo
 
 ## Demo
 
-[`docs/parda-demo.mp4`](docs/parda-demo.mp4) (1 min 55 s, 1080p) is a recording of a live run in Chromium. It covers the profile,
+[`docs/4ce-demo.mp4`](docs/4ce-demo.mp4) (2 min, 1080p) is a recording of a live run in Chromium. It covers the profile,
 the on-device preview, the full claim task with approvals, the receipt, free-text PII on another site,
 PII inside an image, and a **compromised server** trying to exfiltrate the Aadhaar number. To play it again live:
 `cd bench && node demo.mjs`, then `uv run --no-project --with pillow python compose_demo.py` to rebuild the video.
