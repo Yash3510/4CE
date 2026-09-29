@@ -1,0 +1,27 @@
+{
+ "profile": {
+  "NAME": "Ananya Iyer",
+  "EMAIL": "ananya.iyer@mail.test",
+  "PHONE": "+91 82372 42965",
+  "DOB": "14/08/1994",
+  "ADDRESS": "Flat 402, Sunrise Residency, 12th Main Road, Indiranagar, Bengaluru, Karnataka",
+  "PINCODE": "560038",
+  "AADHAAR": "8493 3775 2953",
+  "PAN": "BQKPI4821M",
+  "ACCOUNT": "50100234567812",
+  "IFSC": "PRDA0004521",
+  "UPI": "ananya.iyer@okaxis",
+  "CARD": "4003 8232 9425 0125",
+  "PASSPORT": "N4829176",
+  "VOTER_ID": "RJK4829105"
+ },
+ "planted": {
+  "NAME": "Rohan Mehta",
+  "EMAIL": "rohan.mehta.canary@mail.test",
+  "PHONE": "+91 82005 37488",
+  "AADHAAR": "9388 9915 4252",
+  "CARD": "5875 6988 5901 6117",
+  "ACCOUNT": "91827364500192",
+  "PAN": "CDRPM7731K"
+ }
+}

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parda</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand"><span class="logo">◧</span> Parda <small>personal data stays in the tab</small></div>
+      <div id="server" class="pill">server …</div>
+    </header>
+
+    <section class="goal">
+      <textarea id="goal" rows="2" placeholder="What should the agent do? e.g. Fill the travel claim with my details and submit it"></textarea>
+      <div class="row">
+        <button id="preview" title="Redact this page and show what would be sent, without sending anything">Preview</button>
+        <button id="run" class="primary">Run</button>
+        <button id="step">Step</button>
+        <button id="stop">Stop</button>
+        <button id="reset" class="ghost" title="New session: forget screen tokens, clear receipt and audit">New session</button>
+      </div>
+      <div id="status" class="status">idle</div>
+    </section>
+
+    <nav id="tabs">
+      <button data-tab="view" class="on">Server view</button>
+      <button data-tab="redactions">Redactions</button>
+      <button data-tab="steps">Steps</button>
+      <button data-tab="receipt">Receipt</button>
+      <button data-tab="profile">Profile</button>
+      <button data-tab="settings">Settings</button>
+    </nav>
+
+    <div id="approval" class="approval" hidden>
+      <div class="card">
+        <div class="kind" id="ap-kind"></div>
+        <h3 id="ap-title"></h3>
+        <p id="ap-detail"></p>
+        <div class="row">
+          <button id="ap-yes" class="primary">Approve</button>
+          <button id="ap-no">Decline</button>
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <section data-panel="view">
+        <div class="toggle-row">
+          <label><input type="checkbox" id="show-original" /> Show original (never leaves this device)</label>
+          <label><input type="checkbox" id="lens" /> Outline on page</label>
+        </div>
+        <div class="frame-wrap"><canvas id="frame"></canvas><div id="frame-empty" class="empty">Press <b>Preview</b> to see exactly what the server would receive.</div></div>
+        <div id="frame-stats" class="stats"></div>
+        <div id="timings" class="timings"></div>
+      </section>
+
+      <section data-panel="redactions" hidden>
+        <table class="grid">
+          <thead><tr><th>Token</th><th>Type</th><th>Pass</th><th>Conf</th></tr></thead>
+          <tbody id="red-rows"></tbody>
+        </table>
+        <p class="note">The server gets these tokens, types and boxes. Values stay in the on-device vault; the same value keeps the same token for the whole session.</p>
+      </section>
+
+      <section data-panel="steps" hidden>
+        <ol id="log" class="log"></ol>
+      </section>
+
+      <section data-panel="receipt" hidden>
+        <h4>This device</h4>
+        <div id="rc-client" class="kv"></div>
+        <h4>What the server says it received</h4>
+        <div id="rc-server" class="kv"><span class="muted">no requests yet</span></div>
+        <h4>Audit trail</h4>
+        <div id="rc-audit" class="kv"></div>
+        <div class="row">
+          <button id="rc-refresh">Refresh</button>
+          <button id="rc-verify">Verify chain</button>
+          <button id="rc-export">Export receipt</button>
+        </div>
+      </section>
+
+      <section data-panel="profile" hidden>
+        <p class="note">Your details, stored only in this browser. The planner sees tokens such as ⟦AADHAAR_1⟧; your browser types the real value, and only after you allow it on that site.</p>
+        <form id="profile" class="form"></form>
+        <div class="row"><button id="profile-save" class="primary">Save profile</button></div>
+      </section>
+
+      <section data-panel="settings" hidden>
+        <form id="settings" class="form">
+          <label>Server URL <input name="serverUrl" /></label>
+          <label>Max steps <input name="maxSteps" type="number" min="1" max="50" /></label>
+          <label class="check"><input name="faces" type="checkbox" /> Face detection (BlazeFace)</label>
+          <label class="check"><input name="ocr" type="checkbox" /> OCR on images, canvas and frames (Tesseract)</label>
+          <label class="check"><input name="verifyFrame" type="checkbox" /> Re-read outgoing frame with OCR before sending</label>
+          <label class="check"><input name="marks" type="checkbox" /> Number interactive elements on the frame</label>
+          <label>Frame width <input name="maxWidth" type="number" min="480" max="1920" step="16" /></label>
+          <label>Canary values (one per line, must never reach the server) <textarea name="canaries" rows="4"></textarea></label>
+        </form>
+        <div class="row">
+          <button id="settings-save" class="primary">Save settings</button>
+          <button id="load-canaries">Load testbed canaries</button>
+        </div>
+        <div id="env" class="note"></div>
+      </section>
+    </main>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

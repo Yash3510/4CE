@@ -1,0 +1,29 @@
+{
+  "name": "parda-extension",
+  "description": "Parda: privacy-first browser agent. Personal data never leaves the tab.",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "wxt",
+    "dev:firefox": "wxt -b firefox",
+    "build": "wxt build",
+    "build:firefox": "wxt build -b firefox",
+    "zip": "wxt zip",
+    "zip:firefox": "wxt zip -b firefox",
+    "compile": "tsc --noEmit",
+    "postinstall": "node scripts/copy-assets.mjs && wxt prepare",
+    "test": "esbuild tests/core.test.ts --bundle --platform=node --format=esm --outfile=.output/tests/core.test.mjs --log-level=warning && node --test .output/tests/core.test.mjs"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "vite": "^8.1.5",
+    "web-ext": "^10.5.0",
+    "wxt": "^0.21.3",
+    "esbuild": "^0.28.0"
+  },
+  "dependencies": {
+    "@mediapipe/tasks-vision": "^1.0.1",
+    "tesseract.js": "^7.0.0"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "parda-bench",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "bench": "node bench.mjs",
+    "e2e": "node e2e.mjs"
+  },
+  "dependencies": {
+    "esbuild": "^0.28.2",
+    "playwright": "^1.63.0"
+  }
+}

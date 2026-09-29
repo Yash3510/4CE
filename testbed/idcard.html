@@ -1,0 +1,23 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Upload verification</title><style>
+:root{--ink:#1d1d1b;--muted:#6a6a64;--line:#dedcd5;--bg:#f6f5f1;--panel:#fff;--brand:#1f4e8c}
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 system-ui,'Segoe UI',Roboto,sans-serif;color:var(--ink);background:var(--bg)}
+header{background:var(--brand);color:#fff;padding:12px 24px;display:flex;align-items:center;justify-content:space-between}
+header .who{display:flex;align-items:center;gap:10px;font-size:14px}header img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid #fff}
+main{max-width:980px;margin:24px auto;padding:0 16px}.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:20px 24px;margin-bottom:18px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:16px;margin:0 0 12px}.muted{color:var(--muted)}
+dl{display:grid;grid-template-columns:180px 1fr;gap:6px 16px;margin:0}dt{color:var(--muted)}dd{margin:0}
+form{display:grid;grid-template-columns:1fr 1fr;gap:12px 20px}label{display:grid;gap:4px;font-size:13px;color:var(--muted)}
+input,select,textarea{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:6px;color:var(--ink);background:#fff}
+.full{grid-column:1/-1}button{font:inherit;padding:10px 18px;border-radius:6px;border:0;background:var(--brand);color:#fff;cursor:pointer}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line);font-size:14px}
+.banner{background:#fff7e0;border:1px solid #f0d58c;padding:8px 12px;border-radius:6px;font-size:13px;margin-bottom:12px}
+.ok{background:#e8f6ee;border:1px solid #9fd6b5;padding:14px;border-radius:8px}
+</style></head><body>
+<header><div><b>Employee Services Portal</b> <span style="opacity:.8">· demo</span></div>
+<div class="who"><span>Signed in as <span data-gt="NAME">Ananya Iyer</span></span><img src="assets/face.jpg" alt="profile photo" data-gt-img="FACE"></div></header>
+<main><div class="banner">Synthetic test page for Parda (SIH26171). Every person and number here is made up.</div><div class="card"><h1>Verify your uploaded ID</h1>
+<p class="muted">Check the details on the card image before continuing.</p>
+<img src="assets/idcard.png" width="640" height="400" alt="uploaded ID card" id="idcard" style="border:1px solid var(--line);border-radius:8px">
+<script type="application/json" id="gt-image">{"img": "#idcard", "scale": 1, "boxes": [{"type": "FACE", "box": [60, 120, 84, 108]}, {"type": "NAME", "box": [200, 114, 123, 20]}, {"type": "DOB", "box": [200, 170, 108, 16]}, {"type": "AADHAAR", "box": [200, 226, 156, 16]}, {"type": "PAN", "box": [200, 282, 136, 17]}, {"type": "PHONE", "box": [200, 338, 169, 16]}]}</script>
+<p><button>Looks correct</button></p></div></main></body></html>

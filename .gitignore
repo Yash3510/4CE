@@ -1,0 +1,11 @@
+node_modules/
+.output/
+.wxt/
+extension/public/mediapipe/
+extension/public/tesseract/core/
+extension/public/tesseract/worker.min.js
+server/.venv/
+server/logs/
+__pycache__/
+bench/out/
+testbed/_debug/

@@ -1,0 +1,38 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Profile · Parda Demo Bank</title><style>
+:root{--ink:#1d1d1b;--muted:#6a6a64;--line:#dedcd5;--bg:#f6f5f1;--panel:#fff;--brand:#1f4e8c}
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 system-ui,'Segoe UI',Roboto,sans-serif;color:var(--ink);background:var(--bg)}
+header{background:var(--brand);color:#fff;padding:12px 24px;display:flex;align-items:center;justify-content:space-between}
+header .who{display:flex;align-items:center;gap:10px;font-size:14px}header img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid #fff}
+main{max-width:980px;margin:24px auto;padding:0 16px}.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:20px 24px;margin-bottom:18px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:16px;margin:0 0 12px}.muted{color:var(--muted)}
+dl{display:grid;grid-template-columns:180px 1fr;gap:6px 16px;margin:0}dt{color:var(--muted)}dd{margin:0}
+form{display:grid;grid-template-columns:1fr 1fr;gap:12px 20px}label{display:grid;gap:4px;font-size:13px;color:var(--muted)}
+input,select,textarea{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:6px;color:var(--ink);background:#fff}
+.full{grid-column:1/-1}button{font:inherit;padding:10px 18px;border-radius:6px;border:0;background:var(--brand);color:#fff;cursor:pointer}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line);font-size:14px}
+.banner{background:#fff7e0;border:1px solid #f0d58c;padding:8px 12px;border-radius:6px;font-size:13px;margin-bottom:12px}
+.ok{background:#e8f6ee;border:1px solid #9fd6b5;padding:14px;border-radius:8px}
+</style></head><body>
+<header><div><b>Parda Demo Bank</b> <span style="opacity:.8">· demo</span></div>
+<div class="who"><span>Signed in as <span data-gt="NAME">Ananya Iyer</span></span><img src="assets/face.jpg" alt="profile photo" data-gt-img="FACE"></div></header>
+<main><div class="banner">Synthetic test page for Parda (SIH26171). Every person and number here is made up.</div>
+<div class="card"><h1>My profile</h1><p class="muted">Customer since 2016</p>
+<dl><dt>Account holder</dt><dd><span data-gt="NAME">Ananya Iyer</span></dd>
+<dt>Account number</dt><dd><span data-gt="ACCOUNT">50100234567812</span></dd>
+<dt>IFSC</dt><dd><span data-gt="IFSC">PRDA0004521</span></dd>
+<dt>PAN</dt><dd><span data-gt="PAN">BQKPI4821M</span></dd>
+<dt>Aadhaar (linked)</dt><dd><span data-gt="AADHAAR">8493 3775 2953</span></dd>
+<dt>Date of birth</dt><dd><span data-gt="DOB">14/08/1994</span></dd>
+<dt>Registered mobile</dt><dd><span data-gt="PHONE">+91 82372 42965</span></dd>
+<dt>Email</dt><dd><span data-gt="EMAIL">ananya.iyer@mail.test</span></dd>
+<dt>Address</dt><dd><span data-gt="ADDRESS">Flat 402, Sunrise Residency, 12th Main Road, Indiranagar, Bengaluru, Karnataka - 560038</span></dd>
+<dt>UPI ID</dt><dd><span data-gt="UPI">ananya.iyer@okaxis</span></dd>
+<dt>Debit card</dt><dd><span data-gt="CARD">4003 8232 9425 0125</span></dd></dl></div>
+<div class="card"><h2>Nominee</h2><dl><dt>Nominee name</dt><dd><span data-gt="NAME">Rohan Mehta</span></dd>
+<dt>Nominee Aadhaar</dt><dd><span data-gt="AADHAAR">9388 9915 4252</span></dd><dt>Nominee mobile</dt><dd><span data-gt="PHONE">+91 82005 37488</span></dd></dl></div>
+<div class="card"><h2>Change password</h2><form onsubmit="event.preventDefault()">
+<label>Current password<input type="password" value="Sunrise@402!" data-gt="PASSWORD"></label>
+<label>One-time password<input autocomplete="one-time-code" value="739204" data-gt="OTP"></label>
+<div class="full"><button>Update password</button></div></form>
+<p class="muted">Your OTP for password change is <span data-gt="OTP">739204</span>. Do not share it with anyone.</p></div></main></body></html>
